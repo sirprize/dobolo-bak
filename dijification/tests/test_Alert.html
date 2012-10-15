@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dojo-Bootstrap/Alert</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/styles.css">
+        <link rel="stylesheet" href="assets/docs.css">
+        <link rel="stylesheet" href="assets/responsive.css">
+    </head>
+
+    <body data-spy="scroll" data-target=".bs-docs-sidebar">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="index.html">Tests</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <header class="jumbotron subhead" id="overview">
+            <div class="container">
+                <h1>Dojo-Bootstrap/Alert</h1>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="row">
+                <section>
+                    <div class="page-header">
+                        <h1>Declarative</h1>
+                    </div>
+                    
+                    <div id="my-alert" data-dojo-type="bootstrap/Alert" class="alert fade in">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
+                        
+                        <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
+                            console.info('declarative alert about to be closed');
+                        </script>
+                        
+                        <script type="dojo/on" data-dojo-event="closed" data-dojo-args="ev">
+                            console.info('declarative alert is now closed');
+                        </script>
+                    </div>
+                </section>
+                
+                <section>
+                    <div class="page-header">
+                        <h1>Programmatic</h1>
+                    </div>
+                    
+                    <div id="my-other-alert"></div>
+                </section>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="assets/config.js"></script>
+        <script type="text/javascript" src="../../vendor/dojo/dojo/dojo.js"></script>
+        
+        <script>
+            // declarative stuff
+            require([
+                "bootstrap/Alert",
+                "dojo/ready",
+                "dojo/parser"
+            ], function (
+                MyAlert,
+                ready,
+                parser
+            ) {
+                ready(function () {
+                    parser.parse();
+                });
+            });
+        </script>
+        
+        <script>
+            // programmatic stuff
+            require([
+                "bootstrap/tests/widgets/MyAlert"
+            ], function (
+                MyAlert
+            ) {
+                var alert = new MyAlert({}, 'my-other-alert');
+                alert.startup();
+                
+                alert.on('close', function (ev) {
+                    console.info('programmatic alert about to be closed');
+                });
+                
+                alert.on('closed', function (ev) {
+                    console.info('programmatic alert is now closed');
+                });
+                
+                setTimeout(function () {
+                    if (!alert._destroyed) {
+                        alert.close();
+                    }
+                }, 3000);
+            });
+        </script>
+    </body>
+</html>
