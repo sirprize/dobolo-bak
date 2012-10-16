@@ -6,6 +6,7 @@ define([
     "dojo/query",
     "dojo/_base/lang",
     "dojo/on",
+    "dojo/dom-attr",
     "dojo/dom-class",
     "dojo/dom-style",
     "dojo/text!./templates/Alert.html"
@@ -17,6 +18,7 @@ define([
     query,
     lang,
     on,
+    domAttr,
     domClass,
     domStyle,
     template
@@ -29,19 +31,19 @@ define([
             // summary:
             //      Attach event to dismiss this alert if an immediate child-node
             //      has a data-dojo-dismiss="alert" attribute
-            var dataAttr = null;
+            var dismiss = null;
             this.inherited(arguments);
             
-            if (this.srcNodeRef.getAttribute('data-dojo-type')) {
+            if (domAttr.get(this.srcNodeRef, 'data-dojo-type')) {
                 // declarative instantiation assumed > hide template stuff
                 domStyle.set(this.dismissNode, 'display', 'none');
                 domStyle.set(this.messageNode, 'display', 'none');
             }
             
             query("> *", this.domNode).forEach(lang.hitch(this, function (node) {
-                dataAttr = node.getAttribute('data-dojo-dismiss');
+                dismiss = (domAttr.get(node, 'data-dojo-dismiss') || '').replace(/\s+/g, '').toLowerCase();
                 
-                if (dataAttr && dataAttr.trim().toLowerCase() === 'alert') {
+                if (dismiss === 'alert') {
                     this.own(on(node, 'click', lang.hitch(this, function (ev) {
                         ev.preventDefault();
                         this.close();
