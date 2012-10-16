@@ -37,7 +37,7 @@
                     
                     <div id="my-alert" data-dojo-type="bootstrap/Alert" class="alert fade in">
                         <button type="button" class="close" data-dojo-dismiss="alert">&times;</button>
-                        <strong><i><b>Holy guacamoleeee!</b></i></strong> Best check yo self, you're not looking too good.
+                        <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
                         
                         <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
                             console.info('declarative alert about to be closed');
@@ -69,7 +69,7 @@
                 "dojo/ready",
                 "dojo/parser"
             ], function (
-                MyAlert,
+                Alert,
                 ready,
                 parser
             ) {
@@ -83,7 +83,8 @@
             // programmatic stuff
             require([
                 "bootstrap/Alert",
-                "dojo/dom-construct"
+                "dojo/dom-construct",
+                "dojo/domReady!"
             ], function (
                 Alert,
                 domConstruct
