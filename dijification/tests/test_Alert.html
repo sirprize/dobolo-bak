@@ -36,7 +36,7 @@
                     </div>
                     
                     <div id="my-alert" data-dojo-type="bootstrap/Alert" class="alert fade in">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <button type="button" class="close" data-dojo-dismiss="alert">&times;</button>
                         <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
                         
                         <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
@@ -54,7 +54,9 @@
                         <h1>Programmatic</h1>
                     </div>
                     
-                    <div id="my-other-alert"></div>
+                    <div id="programmatic-example">
+                        <div id="my-other-alert"></div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -82,26 +84,47 @@
         <script>
             // programmatic stuff
             require([
-                "bootstrap/tests/widgets/MyAlert"
+                "bootstrap/Alert",
+                "dojo/dom-construct"
             ], function (
-                MyAlert
+                Alert,
+                domConstruct
             ) {
-                var alert = new MyAlert({}, 'my-other-alert');
-                alert.startup();
+                var alert = null;
                 
-                alert.on('close', function (ev) {
-                    console.info('programmatic alert about to be closed');
-                });
+                var createAlert = function () {
+                    alert = new Alert({
+                        'class': 'alert-success fade in',
+                        message: "<strong>Oh yeah!</strong> That's just lookin' fine",
+                        dismissable: true
+                    }, 'my-other-alert');
+                    alert.startup();
+
+                    alert.on('close', function (ev) {
+                        console.info('programmatic alert about to be closed');
+                    });
+
+                    alert.on('closed', function (ev) {
+                        console.info('programmatic alert is now closed');
+                    });
+                }
                 
-                alert.on('closed', function (ev) {
-                    console.info('programmatic alert is now closed');
-                });
+                createAlert();
                 
                 setTimeout(function () {
                     if (!alert._destroyed) {
                         alert.close();
                     }
                 }, 3000);
+                
+                setTimeout(function () {
+                    domConstruct.create('div', { id: 'my-other-alert' }, 'programmatic-example', 'first');
+                    createAlert();
+                    alert.set({
+                        'class': 'alert-error fade in',
+                        message: "<strong>No way!</strong> It's back",
+                    });
+                }, 4000);
             });
         </script>
     </body>
