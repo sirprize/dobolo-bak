@@ -37,7 +37,7 @@
                     
                     <div id="my-alert" data-dojo-type="bootstrap/Alert" class="alert fade in">
                         <button type="button" class="close" data-dojo-dismiss="alert">&times;</button>
-                        <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
+                        <strong><i><b>Holy guacamoleeee!</b></i></strong> Best check yo self, you're not looking too good.
                         
                         <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
                             console.info('declarative alert about to be closed');
@@ -54,9 +54,7 @@
                         <h1>Programmatic</h1>
                     </div>
                     
-                    <div id="programmatic-example">
-                        <div id="my-other-alert"></div>
-                    </div>
+                    <div id="programmatic-example"></div>
                 </section>
             </div>
         </div>
@@ -93,6 +91,7 @@
                 var alert = null;
                 
                 var createAlert = function () {
+                    domConstruct.create('div', { id: 'my-other-alert' }, 'programmatic-example', 'first');
                     alert = new Alert({
                         'class': 'alert-success fade in',
                         message: "<strong>Oh yeah!</strong> That's just lookin' fine",
@@ -118,12 +117,9 @@
                 }, 3000);
                 
                 setTimeout(function () {
-                    domConstruct.create('div', { id: 'my-other-alert' }, 'programmatic-example', 'first');
                     createAlert();
-                    alert.set({
-                        'class': 'alert-error fade in',
-                        message: "<strong>No way!</strong> It's back",
-                    });
+                    alert.set('class', 'alert-error fade in');
+                    alert.set('message', "<strong>No way!</strong> It's back");
                 }, 4000);
             });
         </script>
