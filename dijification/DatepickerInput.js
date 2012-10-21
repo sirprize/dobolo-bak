@@ -25,7 +25,7 @@ define([
         
         templateString: '<input type="text" data-dojo-attach-point="containerNode"/>',
         format: 'full',
-        date: new Date(),
+        date: null,
         weekStart: 0,
         
         _setFormatAttr: function (f) {
@@ -68,10 +68,12 @@ define([
         postCreate: function () {
             this.inherited(arguments);
             
-            this.domNode.value = locale.format(this.get('date'), {
-                selector: 'date',
-                formatLength: this.get('format')
-            });
+            if (this.get('date') instanceof Date) {
+                this.domNode.value = locale.format(this.get('date'), {
+                    selector: 'date',
+                    formatLength: this.get('format')
+                });
+            }
             
             this.own(this.calendar = new Calendar({
                 weekStart: this.weekStart,
