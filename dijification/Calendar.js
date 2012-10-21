@@ -26,6 +26,7 @@
      "dojo/dom-construct",
      "dojo/dom-style",
      "dojo/text!./templates/Calendar.html",
+     "dojo/i18n!dojo/cldr/nls/gregorian",
      "dojo/NodeList-dom",
      "dojo/NodeList-traverse"
  ], function (
@@ -40,30 +41,18 @@
      domAttr,
      domConstruct,
      domStyle,
-     _template
+     template,
+     gregorian
  ) {
-
     var _modes = [
         { clsName: 'days', navFnc: 'Month', navStep: 1 },
         { clsName: 'months', navFnc: 'FullYear', navStep: 1 },
         { clsName: 'years', navFnc: 'FullYear', navStep: 10 }
     ];
-    
-    var _dates = {
-        days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    };
-    
-    var _getDaysInMonth = function (d) {
-        return [31, (date.isLeapYear(d) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][d.getMonth()];
-    };
 
     return declare([_WidgetBase, _TemplatedMixin], {
         
-        templateString: _template,
+        templateString: template,
         weekStart: 0,
         posTop: 0,
         posLeft: 0,
@@ -131,7 +120,7 @@
 
         update: function (d) {
             var now = new Date();
-            this.date = (d && d.getFullYear) ? d : new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+            this.date = (d instanceof Date) ? new Date(d.getFullYear(),d.getMonth(),d.getDate(),0,0,0) : new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
             this.viewDate = new Date(this.date);
             this.fill();
         },
@@ -140,7 +129,7 @@
             var dowCnt = this.weekStart,
                 html = '<tr>';
             while (dowCnt < this.weekStart + 7) {
-                html += '<th class="dow">'+_dates.daysMin[(dowCnt++)%7]+'</th>';
+                html += '<th class="dow">'+gregorian['days-standAlone-narrow'][(dowCnt++)%7]+'</th>';
             }
             html += '</tr>';
             domConstruct.place(html, query('.calendar-days thead', this.domNode)[0]);
@@ -150,7 +139,7 @@
             var html = '',
                 i = 0;
             while (i < 12) {
-                html += '<span class="month" data-dojo-month="'+i+'">'+_dates.monthsShort[i++]+'</span>';
+                html += '<span class="month" data-dojo-month="'+i+'">'+gregorian['months-standAlone-abbr'][i++]+'</span>';
             }
             domConstruct.place(html, query('.calendar-months td', this.domNode)[0]);
         },
@@ -164,9 +153,9 @@
                 currentDate = this.date.valueOf(),
                 currentYear = this.date.getFullYear(),
                 prevMonth = new Date(year, month-1, 28,0,0,0,0),
-                day = _getDaysInMonth(prevMonth);
+                day = date.getDaysInMonth(prevMonth);
 
-            query('.calendar-days th.switch', this.domNode)[0].innerHTML = _dates.months[month]+' '+year;
+            query('.calendar-days th.switch', this.domNode)[0].innerHTML = gregorian['months-standAlone-wide'][month]+' '+year;
 
             prevMonth.setDate(day);
             prevMonth.setDate(day - (prevMonth.getDay() - this.weekStart + 7)%7);
