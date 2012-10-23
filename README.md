@@ -16,10 +16,9 @@ This project is a port of the [Twitter Bootstrap](http://twitter.github.com/boot
 
 ## Thanks!
 
-+ [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
++ [Twitter Bootstrap](http://twitter.github.com/bootstrap/) and [Dojo](http://dojotoolkit.org/)
 + [Dojo-Bootstrap](http://dojobootstrap.com) - Original port to Dojo implementing the Bootstrap API
 + [Datapicker](http://www.eyecon.ro/bootstrap-datepicker) - Original Datepicker for Bootstrap
-+ [Dojo](http://dojotoolkit.org/)
 
 ## License
 
