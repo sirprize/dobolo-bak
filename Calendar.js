@@ -1,49 +1,34 @@
-/* ==========================================================
- * Copyright 2012 xsokev
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================== */
- define([
-     "dojo/_base/declare",
-     "dijit/_WidgetBase",
-     "dijit/_TemplatedMixin",
-     "dojo/date",
-     "dojo/query",
-     "dojo/_base/lang",
-     "dojo/on",
-     "dojo/dom-class",
-     "dojo/dom-attr",
-     "dojo/dom-construct",
-     "dojo/dom-style",
-     "dojo/text!./templates/Calendar.html",
-     "dojo/i18n!dojo/cldr/nls/gregorian",
-     "dojo/NodeList-dom",
-     "dojo/NodeList-traverse"
- ], function (
-     declare,
-     _WidgetBase,
-     _TemplatedMixin,
-     date,
-     query,
-     lang,
-     on,
-     domClass,
-     domAttr,
-     domConstruct,
-     domStyle,
-     template,
-     gregorian
- ) {
+define([
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+    "dojo/date",
+    "dojo/query",
+    "dojo/_base/lang",
+    "dojo/on",
+    "dojo/dom-class",
+    "dojo/dom-attr",
+    "dojo/dom-construct",
+    "dojo/dom-style",
+    "dojo/text!./templates/Calendar.html",
+    "dojo/i18n!dojo/cldr/nls/gregorian",
+    "dojo/NodeList-dom",
+    "dojo/NodeList-traverse"
+], function (
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    date,
+    query,
+    lang,
+    on,
+    domClass,
+    domAttr,
+    domConstruct,
+    domStyle,
+    template,
+    gregorian
+) {
     var _modes = [
         { clsName: 'days', navFnc: 'Month', navStep: 1 },
         { clsName: 'months', navFnc: 'FullYear', navStep: 1 },

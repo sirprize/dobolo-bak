@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Dojo-Bootstrap/Alert</title>
+        <title>dobolo/Alert</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/styles.css">
         <link rel="stylesheet" href="assets/docs.css">
@@ -24,17 +24,37 @@
             
         <header class="jumbotron subhead" id="overview">
             <div class="container">
-                <h1>Dojo-Bootstrap/Alert</h1>
+                <h1>dobolo/Alert</h1>
             </div>
         </header>
         
         <div class="container">
             <div class="row">
                 <section>
-                    <div class="alert fade in">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                    <div class="page-header">
+                        <h1>Declarative</h1>
                     </div>
+                    
+                    <div id="my-alert" data-dojo-type="dobolo/Alert" class="alert fade in">
+                        <button type="button" class="close" data-dojo-dismiss="alert">&times;</button>
+                        <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
+                        
+                        <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
+                            console.info('declarative alert about to be closed');
+                        </script>
+                        
+                        <script type="dojo/on" data-dojo-event="closed" data-dojo-args="ev">
+                            console.info('declarative alert is now closed');
+                        </script>
+                    </div>
+                </section>
+                
+                <section>
+                    <div class="page-header">
+                        <h1>Programmatic</h1>
+                    </div>
+                    
+                    <div id="programmatic-example"></div>
                 </section>
             </div>
         </div>
@@ -43,22 +63,65 @@
         <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
+            // declarative stuff
             require([
-                "bootstrap/Alert",
-                "dojo/query",
-                "dojo/on"
+                "dobolo/Alert",
+                "dojo/ready",
+                "dojo/parser"
             ], function (
                 Alert,
-                query,
-                on
+                ready,
+                parser
             ) {
-                query('.alert').on('close', function () {
-                    console.info('close');
+                ready(function () {
+                    parser.parse();
                 });
+            });
+        </script>
+        
+        <script>
+            // programmatic stuff
+            require([
+                "dobolo/Alert",
+                "dojo/dom-construct",
+                "dojo/domReady!"
+            ], function (
+                Alert,
+                domConstruct
+            ) {
+                var alert = null;
                 
-                query('.alert').on('closed', function () {
-                    console.info('it is now closed');
-                });
+                var createAlert = function () {
+                    domConstruct.create('div', { id: 'my-other-alert' }, 'programmatic-example', 'first');
+                    alert = new Alert({
+                        'class': 'alert-success fade in',
+                        message: "<strong>Oh yeah!</strong> That's just lookin' fine",
+                        dismissable: true
+                    }, 'my-other-alert');
+                    alert.startup();
+
+                    alert.on('close', function (ev) {
+                        console.info('programmatic alert about to be closed');
+                    });
+
+                    alert.on('closed', function (ev) {
+                        console.info('programmatic alert is now closed');
+                    });
+                }
+                
+                createAlert();
+                
+                setTimeout(function () {
+                    if (!alert._destroyed) {
+                        alert.close();
+                    }
+                }, 3000);
+                
+                setTimeout(function () {
+                    createAlert();
+                    alert.set('class', 'alert-error fade in');
+                    alert.set('message', "<strong>No way!</strong> It's back");
+                }, 4000);
             });
         </script>
     </body>

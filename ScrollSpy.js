@@ -1,6 +1,6 @@
 define([
     "dojo/_base/declare",
-    "bootstrap/ScrollTopSpyHelper",
+    "./ScrollTopSpyHelper",
     "dojo/_base/window",
     "dojo/dom-class",
     "dojo/dom-attr",

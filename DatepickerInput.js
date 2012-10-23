@@ -1,25 +1,23 @@
 define([
-     "dojo/_base/declare",
-     "dijit/_WidgetBase",
-     "dijit/_TemplatedMixin",
-     "dojo/_base/window",
-     "dojo/_base/lang",
-     "dojo/date/locale",
-     "dojo/on",
-     "dojo/dom-geometry",
-     "./Calendar",
-     "dojo/i18n!dojo/cldr/nls/gregorian"
+    "dojo/_base/declare",
+    "dijit/_WidgetBase",
+    "dijit/_TemplatedMixin",
+    "dojo/_base/window",
+    "dojo/_base/lang",
+    "dojo/date/locale",
+    "dojo/on",
+    "dojo/dom-geometry",
+    "./Calendar"
  ], function (
-     declare,
-     _WidgetBase,
-     _TemplatedMixin,
-     win,
-     lang,
-     locale,
-     on,
-     domGeom,
-     Calendar,
-     gregorian
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    win,
+    lang,
+    locale,
+    on,
+    domGeom,
+    Calendar
 ) {
     return declare([_WidgetBase, _TemplatedMixin], {
         

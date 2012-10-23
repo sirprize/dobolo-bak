@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Dojo-Bootstrap/Scrollspy (Declarative)</title>
+        <title>dobolo/Scrollspy (Programmatic)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/styles.css">
         <link rel="stylesheet" href="assets/docs.css">
@@ -44,7 +44,7 @@
             
         <header class="jumbotron subhead" id="overview">
             <div class="container">
-                <h1>Dojo-Bootstrap/Scrollspy (Declarative)</h1>
+                <h1>dobolo/Scrollspy (Programmatic)</h1>
             </div>
         </header>
         
@@ -69,7 +69,7 @@
                 </div>
                 
                 <!-- scrollable area -->
-                <div data-dojo-type="bootstrap/Scrollspy" data-dojo-props="targetSelector: '#my-navbar', offsetNodeSelector: 'section', offsetTop: 0, wait: 0" class="scroll-section">
+                <div id="scroll-section" class="scroll-section">
                     <section id="aaa">
                         <h1>aaa</h1>
                     </section>
@@ -95,23 +95,25 @@
         </div>
         
         <script type="text/javascript" src="assets/config.js"></script>
-        <script type="text/javascript" src="../../vendor/dojo/dojo/dojo.js"></script>
+        <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
             require([
-                "bootstrap/ScrollSpy",
-                //"bootstrap/Dropdown",
+                "dobolo/ScrollSpy",
+                "dojo/query",
                 "dojo/ready",
-                "dojo/parser"
+                "dojo/domReady!"
             ], function (
                 ScrollSpy,
-                //Dropdown,
-                ready,
-                parser
+                query,
+                ready
             ) {
-                ready(function () {
-                    parser.parse();
-                });
+                var scrollSpy = new ScrollSpy({
+                    targetSelector: '#my-navbar',
+                    offsetNodeSelector: 'section',
+                    offsetTop: 0,
+                    wait: 0
+                }, query('.scroll-section')[0]);
             });
         </script>
     </body>

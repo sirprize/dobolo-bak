@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Dojo-Bootstrap/Affix (Programmatic)</title>
+        <title>dobolo/Affix (Declarative)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/styles.css">
         <link rel="stylesheet" href="assets/docs.css">
@@ -15,7 +15,7 @@
         </style>
     </head>
 
-    <body>
+    <body data-dojo-id="scrollSpy" data-dojo-type="dobolo/Scrollspy" data-dojo-props="targetSelector: '.bs-docs-sidenav', offsetNodeSelector: 'section', offsetTop: 70, wait: 100">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -30,7 +30,7 @@
             
         <header class="jumbotron subhead" id="overview">
             <div class="container">
-                <h1>Dojo-Bootstrap/Affix (Programmatic)</h1>
+                <h1>dobolo/Affix (Declarative)</h1>
             </div>
         </header>
         
@@ -38,8 +38,13 @@
             <div class="row">
                 <section>
                     <!-- navigation -->
-                    <div class="span3 bs-docs-sidebar">
-                        <ul id="my-affix" class="nav nav-list bs-docs-sidenav">
+                    <div class="span3">
+                        <script>
+                            var offsetTop = function () {
+                                return document.width <= 980 ? 245 : 195;
+                            }
+                        </script>
+                        <ul class="nav nav-list bs-docs-sidenav" data-dojo-type="dobolo/Affix" data-dojo-props="offsetTop: offsetTop">
                             <li><a href="#a"><i class="icon-chevron-right"></i> A</a></li>
                             <li><a href="#b"><i class="icon-chevron-right"></i> B</a></li>
                             <li><a href="#c"><i class="icon-chevron-right"></i> C</a></li>
@@ -71,35 +76,23 @@
         </div>
         
         <script type="text/javascript" src="assets/config.js"></script>
-        <script type="text/javascript" src="../../vendor/dojo/dojo/dojo.js"></script>
+        <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
             require([
-                "bootstrap/Affix",
-                "bootstrap/ScrollSpy",
-                "dojo/_base/window",
-                "dojo/dom",
+                "dobolo/Affix",
+                "dobolo/ScrollSpy",
                 "dojo/ready",
-                "dojo/domReady!"
+                "dojo/parser"
             ], function (
                 Affix,
                 ScrollSpy,
-                baseWin,
-                dom,
-                ready
+                ready,
+                parser
             ) {
-                var affix = new Affix({
-                    offsetTop: function () {
-                        return document.width <= 980 ? 245 : 195;
-                    }
-                }, dom.byId('my-affix'));
-                
-                var scrollSpy = new ScrollSpy({
-                    targetSelector: '.bs-docs-sidenav',
-                    offsetNodeSelector: 'section',
-                    offsetTop: 70,
-                    wait: 100
-                }, baseWin.body());
+                ready(function () {
+                    parser.parse();
+                });
             });
         </script>
     </body>

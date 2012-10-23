@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Dojo-Bootstrap/Button (Declarative)</title>
+        <title>dobolo/Button (Declarative)</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/styles.css">
         <link rel="stylesheet" href="assets/docs.css">
@@ -24,7 +24,7 @@
             
         <header class="jumbotron subhead" id="overview">
             <div class="container">
-                <h1>Dojo-Bootstrap/Button (Declarative)</h1>
+                <h1>dobolo/Button (Declarative)</h1>
             </div>
         </header>
         
@@ -35,14 +35,14 @@
                         <h1>Stateful</h1>
                     </div>
                     
-                    <button id="my-loading-button" type="button" class="btn btn-primary" data-dojo-type="bootstrap/Button" data-dojo-props="loadingText:'Loading...',resetTextasdf:'Loaded'">Load</button>
+                    <button id="my-loading-button" type="button" class="btn btn-primary" data-dojo-type="dobolo/Button" data-dojo-props="loadingText:'Loading...',resetTextasdf:'Loaded'">Load</button>
                 </section>
                 
                 <section>
                     <div class="page-header">
                         <h1>Toggle</h1>
                     </div>
-                    <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'checkbox'">Toggle</button>
+                    <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Toggle</button>
                 </section>
                 
                 <section>
@@ -50,9 +50,9 @@
                         <h1>Checkbox</h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'checkbox'">Left</button>
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'checkbox'">Middle</button>
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'checkbox'">Right</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Left</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Middle</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Right</button>
                     </div>
                 </section>
                 
@@ -61,9 +61,9 @@
                         <h1>Radio</h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'radio',group:'xxx'">Left</button>
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'radio',group:'xxx'">Middle</button>
-                        <button type="button" class="btn" data-dojo-type="bootstrap/Button" data-dojo-props="mode:'radio',group:'xxx'">Right</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Left</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Middle</button>
+                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Right</button>
                     </div>
                 </section>
                 
@@ -72,12 +72,12 @@
         </div>
         
         <script type="text/javascript" src="assets/config.js"></script>
-        <script type="text/javascript" src="../../vendor/dojo/dojo/dojo.js"></script>
+        <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
             // declarative stuff
             require([
-                "bootstrap/Button",
+                "dobolo/Button",
                 "dijit/registry",
                 "dojo/on",
                 "dojo/ready",
