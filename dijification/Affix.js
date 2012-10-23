@@ -16,8 +16,6 @@
 
 define([
     'dojo/_base/declare',
-    "dijit/_WidgetBase",
-    "dijit/_TemplatedMixin",
     'dojo/_base/lang',
     'dojo/_base/window',
     'dojo/on',
@@ -26,8 +24,6 @@ define([
     'dojo/dom-geometry'
 ], function (
     declare,
-    _WidgetBase,
-    _TemplatedMixin,
     lang,
     win,
     on,
@@ -35,24 +31,27 @@ define([
     domStyle,
     domGeom
 ) {
-    return declare([_WidgetBase, _TemplatedMixin], {
+    return declare([], {
         
-        templateString: '<div data-dojo-attach-point="containerNode"></div>',
-        offsetTop: null,
-        offsetBottom: null,
+        offsetTop: 0,
+        offsetBottom: 0,
         affixed: null,
         unpin: null,
+        scroller: null,
         
-        postCreate: function () {
-            this.inherited(arguments);
-            this.own(on(win.global, 'scroll', lang.hitch(this, 'checkPosition')));
+        constructor: function (props, node) {
+            props = props || {};
+            this.node = node;
+            this.offsetTop = props.offsetTop || 0;
+            this.offsetBottom = props.offsetBottom || 0;
+            this.scroller = on(win.doc, 'scroll', lang.hitch(this, 'checkPosition'));
             this.checkPosition();
         },
         
         checkPosition: function () {
-            if (domStyle.get(this.domNode, 'display') === 'none') { return; }
+            if (domStyle.get(this.node, 'display') === 'none') { return; }
 
-            var pos = domGeom.position(this.domNode, false),
+            var pos = domGeom.position(this.node, false),
                 scrollHeight = win.doc.height,
                 scrollTop = win.global.scrollY,
                 reset = 'affix affix-top affix-bottom',
@@ -63,13 +62,13 @@ define([
             if (typeof this.offsetTop === 'function') { 
                 offsetTop = this.offsetTop(); 
             } else {
-                offsetTop = this.offsetTop || 0;
+                offsetTop = this.offsetTop;
             }
             
             if (typeof this.offsetBottom === 'function') { 
                 offsetBottom = this.offsetBottom(); 
             } else {
-                offsetBottom = this.offsetBottom || 0;
+                offsetBottom = this.offsetBottom;
             }
 
             affix = this.unpin !== null && (scrollTop + this.unpin <= pos.y) ?
@@ -81,8 +80,14 @@ define([
 
             this.affixed = affix;
             this.unpin = affix === 'bottom' ? pos.y - scrollTop : null;
-            domClass.remove(this.domNode, reset);
-            domClass.add(this.domNode, 'affix' + (affix ? '-' + affix : ''));
+            domClass.remove(this.node, reset);
+            domClass.add(this.node, 'affix' + (affix ? '-' + affix : ''));
+        },
+        
+        destroy: function () {
+            if (this.scroller && this.scroller.remove) {
+                this.scroller.remove();
+            }
         }
     });
 });

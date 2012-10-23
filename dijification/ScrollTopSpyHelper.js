@@ -44,7 +44,7 @@ define([
     return declare([Evented], {
         scroller: null,
         
-        constructor: function (scrollingNode, offsetNodes, topOffset, wait) {console.log('asdf')
+        constructor: function (scrollingNode, offsetNodes, topOffset, wait) {
             var x,
                 wait = wait || 100,
                 topOffset = topOffset || 0,

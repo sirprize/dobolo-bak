@@ -39,7 +39,11 @@
                 <section>
                     <!-- navigation -->
                     <div class="span3 bs-docs-sidebar">
-                        <ul id="my-affix"></ul>
+                        <ul id="my-affix" class="nav nav-list bs-docs-sidenav">
+                            <li><a href="#a"><i class="icon-chevron-right"></i> A</a></li>
+                            <li><a href="#b"><i class="icon-chevron-right"></i> B</a></li>
+                            <li><a href="#c"><i class="icon-chevron-right"></i> C</a></li>
+                        </ul>
                     </div>
                     
                     <!-- content -->
@@ -71,22 +75,24 @@
         
         <script>
             require([
-                "bootstrap/tests/widgets/MyAffix",
+                "bootstrap/Affix",
                 "bootstrap/ScrollSpy",
                 "dojo/_base/window",
+                "dojo/dom",
                 "dojo/ready",
                 "dojo/domReady!"
             ], function (
-                MyAffix,
+                Affix,
                 ScrollSpy,
                 baseWin,
+                dom,
                 ready
             ) {
-                var affix = new MyAffix({
+                var affix = new Affix({
                     offsetTop: function () {
                         return document.width <= 980 ? 245 : 195;
                     }
-                }, 'my-affix');
+                }, dom.byId('my-affix'));
                 
                 var scrollSpy = new ScrollSpy({
                     targetSelector: '.bs-docs-sidenav',
