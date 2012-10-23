@@ -1,5 +1,5 @@
 define([
-    './Support',
+    './Util',
     "dojo/_base/declare",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -11,7 +11,7 @@ define([
     "dojo/dom-style",
     "dojo/text!./templates/Alert.html"
 ], function (
-    Support,
+    Util,
     declare,
     _WidgetBase,
     _TemplatedMixin,
@@ -59,7 +59,7 @@ define([
                     bubbles: true,
                     cancelable: true
                 },
-                transition = Support.transition && domClass.contains(this.domNode, 'fade'),
+                transition = Util.transition && domClass.contains(this.domNode, 'fade'),
                 remove = function () {
                     this.emit('closed', eventObj);
                     this.destroyRecursive();
@@ -69,7 +69,7 @@ define([
             domClass.remove(this.domNode, 'in');
             
             if (transition) {
-                on(this.domNode, Support.transition.end, lang.hitch(this, remove));
+                on(this.domNode, Util.transition.end, lang.hitch(this, remove));
             } else {
                 lang.hitch(this, remove)();
             }
