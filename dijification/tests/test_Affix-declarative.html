@@ -15,7 +15,7 @@
         </style>
     </head>
 
-    <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <body data-dojo-id="scrollSpy" data-dojo-type="bootstrap/Scrollspy" data-dojo-props="targetSelector: '.bs-docs-sidenav', offsetNodeSelector: 'section', offsetTop: 70, wait: 100">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -38,13 +38,13 @@
             <div class="row">
                 <section>
                     <!-- navigation -->
-                    <div class="span3 bs-docs-sidebar">
+                    <div class="span3">
                         <script>
                             var offsetTop = function () {
                                 return document.width <= 980 ? 245 : 195;
                             }
                         </script>
-                        <ul class="nav bs-docs-sidenav" data-dojo-type="bootstrap/Affix" data-dojo-props="offsetTop:offsetTop">
+                        <ul class="nav nav-list bs-docs-sidenav" data-dojo-type="bootstrap/Affix" data-dojo-props="offsetTop: offsetTop">
                             <li><a href="#a"><i class="icon-chevron-right"></i> A</a></li>
                             <li><a href="#b"><i class="icon-chevron-right"></i> B</a></li>
                             <li><a href="#c"><i class="icon-chevron-right"></i> C</a></li>
@@ -81,10 +81,12 @@
         <script>
             require([
                 "bootstrap/Affix",
+                "bootstrap/ScrollSpy",
                 "dojo/ready",
                 "dojo/parser"
             ], function (
                 Affix,
+                ScrollSpy,
                 ready,
                 parser
             ) {

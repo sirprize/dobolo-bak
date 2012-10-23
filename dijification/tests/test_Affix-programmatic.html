@@ -15,7 +15,7 @@
         </style>
     </head>
 
-    <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -72,10 +72,14 @@
         <script>
             require([
                 "bootstrap/tests/widgets/MyAffix",
+                "bootstrap/ScrollSpy",
+                "dojo/_base/window",
                 "dojo/ready",
                 "dojo/domReady!"
             ], function (
                 MyAffix,
+                ScrollSpy,
+                baseWin,
                 ready
             ) {
                 var affix = new MyAffix({
@@ -83,6 +87,13 @@
                         return document.width <= 980 ? 245 : 195;
                     }
                 }, 'my-affix');
+                
+                var scrollSpy = new ScrollSpy({
+                    targetSelector: '.bs-docs-sidenav',
+                    offsetNodeSelector: 'section',
+                    offsetTop: 70,
+                    wait: 100
+                }, baseWin.body());
             });
         </script>
     </body>
