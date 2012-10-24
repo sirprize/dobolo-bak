@@ -1,17 +1,20 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>XXX</title>
+        <title>Dobolo - Dojo Bootstrap Love</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/solarized_dark.min.css">
+        <!--<link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/solarized_dark.min.css">-->
+        <link href="../assets/vendor/twitter/bootstrap/docs/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
         
         
-            <link rel="stylesheet" href="assets-201210241628/frontend-styles/bootstrap-common.css">
-            <link rel="stylesheet" href="assets-201210241628/frontend-styles/bootstrap-responsive.css">
-            <link rel="stylesheet" href="assets-201210241628/frontend-styles/bootstrap-docs.css">
+            <link rel="stylesheet" href="assets-201210250006/frontend-styles/bootstrap-common.css">
+            <link rel="stylesheet" href="assets-201210250006/frontend-styles/bootstrap-responsive.css">
+            <link rel="stylesheet" href="assets-201210250006/frontend-styles/bootstrap-docs.css">
         
         
         <!--[if lt IE 9]>
@@ -28,7 +31,7 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="">
-                                <a href="XXX">XXX on Github</a>
+                                <a href="https://github.com/sirprize/dobolo">Dobolo on Github</a>
                             </li>
                         </ul>
                     </div>
@@ -39,8 +42,8 @@
         <!-- Subhead -->
         <header class="jumbotron subhead" id="overview">
             <div class="container">
-                <h1>XXX</h1>
-                <p class="lead">XXX</p>
+                <h1>Dobolo</h1>
+                <p class="lead">Dojo Bootstrap Love</p>
             </div>
         </header>
 
@@ -50,25 +53,158 @@
             <div class="row">
                 <div class="span3 bs-docs-sidebar">
                     <ul class="nav nav-list bs-docs-sidenav">
-                        <li><a href="#xxx"><i class="icon-chevron-right"></i> XXX</a></li>
+                        <li><a href="#affix"><i class="icon-chevron-right"></i> Affix</a></li>
+                        <li><a href="#button"><i class="icon-chevron-right"></i> Button</a></li>
                     </ul>
                 </div>
             
                 <div class="span9">
                     
-                    <!-- Button -->
-                    <section id="xxx" class="spy">
+                    <!-- Affix -->
+                    <section id="affix" class="spy">
                         <div class="page-header">
-                            <h1>XXX</h1>
-                            <p>XXX</a>.
+                            <h1>Affix</h1>
+                            <p>Add affix behavior to any element. Use offsets to define when to toggle the pinning of an element on and off.</p>
                         </div>
                         
-                        <h3>XXX</h3>
+                        <h3>Declarative</h3>
+                        
+                        <pre class="prettyprint linenums">&lt;div data-dojo-type=&quot;dobolo/Affix&quot; data-dojo-props=&quot;offsetTop: 100&quot;&gt;
+    ...
+&lt;/div&gt;</pre>
+                        
+                        <h3>Programmatic</h3>
+                        
+                        <pre class="prettyprint linenums">require([&quot;dobolo/Affix&quot;, &quot;dojo/dom&quot;], function (Affix, dom) {
+    var affix = new Affix({
+        offsetTop: 100,
+        offsetBottom: 100
+    }, dom.byId('my-affix'));
+});</pre>
+                        
+                        <h3>Properties</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>offsetTop</td>
+                                    <td>Number</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>offsetBottom</td>
+                                    <td>Number</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    
+                    <!-- Button -->
+                    <section id="button" class="spy">
+                        <div class="page-header">
+                            <h1>Button</h1>
+                        </div>
+                        
+                        <h2>Stateful Button</h2>
+                        
                         <div class="bs-docs-example">
-                            XXX
+                            <script>
+    var load = function (ev) {
+        var button = this;
+        button.loading();
+        setTimeout(function () { button.reset(); }, 2000);
+    }
+</script>
+
+<button class="btn btn-primary" data-dojo-type="dobolo/Button" data-dojo-props="onClick: load, loadingText: 'Loading...', resetText: 'Loaded'">Load</button>
                         </div>
                         
-                        <pre><code class="language-javascript">alert('xxx');</code></pre>
+                        <h3>Declarative</h3>
+                        
+                        <pre class="prettyprint linenums">&lt;script&gt;
+    var load = function (ev) {
+        var button = this;
+        button.loading();
+        setTimeout(function () { button.reset(); }, 2000);
+    }
+&lt;/script&gt;
+
+&lt;button class=&quot;btn btn-primary&quot; data-dojo-type=&quot;dobolo/Button&quot; data-dojo-props=&quot;onClick: load, loadingText: 'Loading...', resetText: 'Loaded'&quot;&gt;Load&lt;/button&gt;</pre>
+                        
+                        <h3>Programmatic</h3>
+                        
+                        <pre class="prettyprint linenums">require([&quot;dobolo/Button&quot;], function (Button) {
+    var button = new Button({
+        type: 'submit',
+        'class': 'btn btn-primary',
+        label: 'Load',
+        loadingText: 'Loading...',
+        resetText: 'Loaded'
+    }, 'my-button');
+
+    button.startup();
+    
+    button.on('click', function (ev) {
+        button.loading();
+        setTimeout(function () {
+            button.reset();
+        }, 2000);
+    });
+});</pre>
+                        
+                        
+                        <h3>Properties</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>loadingText</td>
+                                    <td>String</td>
+                                    <td>Loading...</td>
+                                </tr>
+                                <tr>
+                                    <td>resetText</td>
+                                    <td>String</td>
+                                    <td>Loaded</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3>Methods</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Args</th>
+                                    <th>Returns</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>loading()</td>
+                                    <td>--</td>
+                                    <td>undefined</td>
+                                </tr>
+                                <tr>
+                                    <td>reset()</td>
+                                    <td>--</td>
+                                    <td>undefined</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </section>
                     
                 </div>
@@ -85,27 +221,25 @@
             </div>
         </footer>
         
-        <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+        <!--<script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>-->
+        <script src="../assets/vendor/twitter/bootstrap/docs/assets/js/google-code-prettify/prettify.js"></script>
         
         
-            <script type="text/javascript" data-dojo-config="async: true, parseOnLoad: true" src="assets-201210241628/dojo/dojo.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/event.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/promise.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/browser.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/ajax.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/dom-common.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/dom-extra.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/widget-common.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/widget-extra.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/form-click.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/form-select.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/layer/form-text.js"></script>
-            <script type="text/javascript" src="assets-201210241628/frontend/index.js"></script>
+            <script type="text/javascript" data-dojo-config="async: true, parseOnLoad: true" src="assets-201210250006/dojo/dojo.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/event.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/promise.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/browser.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/ajax.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/dom-common.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/dom-extra.js"></script>
+            <script type="text/javascript" src="assets-201210250006/frontend/layer/widget-common.js"></script>
+            
+            <script type="text/javascript" src="assets-201210250006/frontend/index.js"></script>
         
         
         <script>
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'XXX']);
+            _gaq.push(['_setAccount', 'UA-35397940-1']);
             _gaq.push(['_trackPageview']);
 
             (function() {
