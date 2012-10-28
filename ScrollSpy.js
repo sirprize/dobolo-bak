@@ -23,7 +23,7 @@ define([
         constructor: function (props, scrollingNode) {
             var props = props || {},
                 scrollingNode = (!scrollingNode || scrollingNode && scrollingNode.tagName === 'BODY') ? baseWin.doc : scrollingNode,
-                offsetNodes = (props.offsetNodeSelector) ? query(props.offsetNodeSelector, scrollingNode) : [],
+                offsetNodes = (props.offsetsSelector) ? query(props.offsetsSelector, scrollingNode) : [],
                 offsetTop = props.offsetTop || 0,
                 wait = props.wait || 100,
                 targetSelector = (props.targetSelector) ? props.targetSelector : null;

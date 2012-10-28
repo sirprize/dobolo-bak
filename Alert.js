@@ -26,24 +26,21 @@ define([
     return declare([_WidgetBase, _TemplatedMixin], {
         
         templateString: template,
+        closable: true,
         
         postCreate: function () {
             // summary:
-            //      Attach event to dismiss this alert if an immediate child-node
-            //      has a data-dojo-dismiss="alert" attribute
-            var dismiss = null;
+            //      Attach event to dismiss this alert if an immediate child-node has class="close"
             this.inherited(arguments);
             
             if (domAttr.get(this.srcNodeRef, 'data-dojo-type')) {
                 // declarative instantiation assumed > hide template stuff
-                domStyle.set(this.dismissNode, 'display', 'none');
-                domStyle.set(this.messageNode, 'display', 'none');
+                domStyle.set(this.closeNode, 'display', 'none');
+                domStyle.set(this.contentNode, 'display', 'none');
             }
             
             query("> *", this.domNode).forEach(lang.hitch(this, function (node) {
-                dismiss = (domAttr.get(node, 'data-dojo-dismiss') || '').replace(/\s+/g, '').toLowerCase();
-                
-                if (dismiss === 'alert') {
+                if (domClass.contains(node, 'close')) {
                     this.own(on(node, 'click', lang.hitch(this, function (ev) {
                         ev.preventDefault();
                         this.close();
@@ -75,16 +72,16 @@ define([
             }
         },
         
-        _setMessageAttr: function (val) {
-            this.messageNode.innerHTML = val;
+        _setContentAttr: function (val) {
+            this.contentNode.innerHTML = val;
         },
         
         _setClassAttr: function (val) {
             domClass.add(this.domNode, val);
         },
         
-        _setDismissableAttr: function (val) {
-            domStyle.set(this.dismissNode, 'display', (val) ? 'block' : 'none');
+        _setClosableAttr: function (val) {
+            domStyle.set(this.closeNode, 'display', (val) ? 'block' : 'none');
         }
     });
 });

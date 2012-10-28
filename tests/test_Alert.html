@@ -35,8 +35,8 @@
                         <h1>Declarative</h1>
                     </div>
                     
-                    <div id="my-alert" data-dojo-type="dobolo/Alert" class="alert fade in">
-                        <button type="button" class="close" data-dojo-dismiss="alert">&times;</button>
+                    <div data-dojo-type="dobolo/Alert" class="alert fade in">
+                        <button class="close">&times;</button>
                         <strong><i><b>Holy guacamole!</b></i></strong> Best check yo self, you're not looking too good.
                         
                         <script type="dojo/on" data-dojo-event="close" data-dojo-args="ev">
@@ -64,19 +64,7 @@
         
         <script>
             // declarative stuff
-            require([
-                "dobolo/Alert",
-                "dojo/ready",
-                "dojo/parser"
-            ], function (
-                Alert,
-                ready,
-                parser
-            ) {
-                ready(function () {
-                    parser.parse();
-                });
-            });
+            require(["dojo/parser"]);
         </script>
         
         <script>
@@ -95,8 +83,8 @@
                     domConstruct.create('div', { id: 'my-other-alert' }, 'programmatic-example', 'first');
                     alert = new Alert({
                         'class': 'alert-success fade in',
-                        message: "<strong>Oh yeah!</strong> That's just lookin' fine",
-                        dismissable: true
+                        content: "<strong>Oh yeah!</strong> That's just lookin' fine",
+                        closable: true
                     }, 'my-other-alert');
                     alert.startup();
 
@@ -120,7 +108,7 @@
                 setTimeout(function () {
                     createAlert();
                     alert.set('class', 'alert-error fade in');
-                    alert.set('message', "<strong>No way!</strong> It's back");
+                    alert.set('content', "<strong>No way!</strong> It's back");
                 }, 4000);
             });
         </script>

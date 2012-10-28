@@ -69,7 +69,7 @@
                 </div>
                 
                 <!-- scrollable area -->
-                <div data-dojo-type="dobolo/Scrollspy" data-dojo-props="targetSelector: '#my-navbar', offsetNodeSelector: 'section', offsetTop: 0, wait: 0" class="scroll-section">
+                <div data-dojo-type="dobolo/Scrollspy" data-dojo-props="targetSelector: '#my-navbar', offsetsSelector: 'section', offsetTop: 0, wait: 0" class="scroll-section">
                     <section id="aaa">
                         <h1>aaa</h1>
                     </section>
@@ -98,21 +98,7 @@
         <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
-            require([
-                "dobolo/ScrollSpy",
-                //"dobolo/Dropdown",
-                "dojo/ready",
-                "dojo/parser"
-            ], function (
-                ScrollSpy,
-                //Dropdown,
-                ready,
-                parser
-            ) {
-                ready(function () {
-                    parser.parse();
-                });
-            });
+            require(["dojo/parser"]);
         </script>
     </body>
 </html>

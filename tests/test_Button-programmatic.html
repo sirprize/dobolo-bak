@@ -40,13 +40,6 @@
                 
                 <section>
                     <div class="page-header">
-                        <h1>Toggle</h1>
-                    </div>
-                    <button id="w2"></button>
-                </section>
-                
-                <section>
-                    <div class="page-header">
                         <h1>Checkbox</h1>
                     </div>
                     <div class="btn-group">
@@ -84,7 +77,6 @@
             ) {
                 // stateful
                 var w1 = new Button({
-                    type: 'submit',
                     'class': 'btn btn-primary',
                     label: 'Load',
                     loadingText: 'Loading...',
@@ -100,19 +92,8 @@
                     }, 2000);
                 });
                 
-                // toggle
-                var w2 = new Button({
-                    type: 'submit',
-                    'class': 'btn',
-                    label: 'Toggle',
-                    mode: 'checkbox'
-                }, 'w2');
-
-                w2.startup();
-                
                 // checkbox
                 var w3_1 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Left',
                     mode: 'checkbox'
@@ -121,7 +102,6 @@
                 w3_1.startup();
                 
                 var w3_2 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Middle',
                     mode: 'checkbox'
@@ -130,7 +110,6 @@
                 w3_2.startup();
                 
                 var w3_3 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Right',
                     mode: 'checkbox'
@@ -140,7 +119,6 @@
                 
                 // radio
                 var w4_1 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Left',
                     mode: 'radio',
@@ -150,7 +128,6 @@
                 w4_1.startup();
                 
                 var w4_2 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Middle',
                     mode: 'radio',
@@ -160,7 +137,6 @@
                 w4_2.startup();
                 
                 var w4_3 = new Button({
-                    type: 'submit',
                     'class': 'btn',
                     label: 'Right',
                     mode: 'radio',

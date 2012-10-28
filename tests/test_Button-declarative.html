@@ -35,14 +35,17 @@
                         <h1>Stateful</h1>
                     </div>
                     
-                    <button id="my-loading-button" type="button" class="btn btn-primary" data-dojo-type="dobolo/Button" data-dojo-props="loadingText:'Loading...',resetTextasdf:'Loaded'">Load</button>
-                </section>
-                
-                <section>
-                    <div class="page-header">
-                        <h1>Toggle</h1>
-                    </div>
-                    <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Toggle</button>
+                    <script>
+                        var load = function (ev) {
+                            var button = this;
+                            button.loading();
+                            setTimeout(function () {
+                                button.reset();
+                            }, 2000);
+                        }
+                    </script>
+                    
+                    <button id="my-loading-button" class="btn btn-primary" data-dojo-type="dobolo/Button" data-dojo-props="onClick: load, loadingText:'Loading...',resetTextasdf:'Loaded'">Load</button>
                 </section>
                 
                 <section>
@@ -50,9 +53,9 @@
                         <h1>Checkbox</h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Left</button>
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Middle</button>
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Right</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Left</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Middle</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'checkbox'">Right</button>
                     </div>
                 </section>
                 
@@ -61,9 +64,9 @@
                         <h1>Radio</h1>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Left</button>
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Middle</button>
-                        <button type="button" class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Right</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Left</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Middle</button>
+                        <button class="btn" data-dojo-type="dobolo/Button" data-dojo-props="mode:'radio',group:'xxx'">Right</button>
                     </div>
                 </section>
                 
@@ -75,33 +78,7 @@
         <script type="text/javascript" src="../vendor/dojo/dojo/dojo.js"></script>
         
         <script>
-            // declarative stuff
-            require([
-                "dobolo/Button",
-                "dijit/registry",
-                "dojo/on",
-                "dojo/ready",
-                "dojo/parser"
-            ], function (
-                Button,
-                registry,
-                on,
-                ready,
-                parser
-            ) {
-                ready(function () {
-                    parser.parse();
-                    
-                    var button = registry.byId('my-loading-button');
-                    
-                    button.on('click', function (ev) {
-                        button.loading();
-                        setTimeout(function () {
-                            button.reset();
-                        }, 2000);
-                    });
-                });
-            });
+            require(["dojo/parser"]);
         </script>
     </body>
 </html>
