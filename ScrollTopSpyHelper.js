@@ -25,8 +25,8 @@ define([
                 wait = wait || 100,
                 topOffset = topOffset || 0,
                 activeNode = null,
-                scrollingNodeTop = (scrollingNode === baseWin.doc) ? 0 : domGeom.position(scrollingNode).y,
                 getActiveNode = Util.throttle(function (offsetNodes) {
+                    var scrollingNodeTop = (scrollingNode === baseWin.doc) ? 0 : domGeom.position(scrollingNode).y;
                     for (x = offsetNodes.length - 1; x >= 0; x -= 1) {
                         if (domGeom.position(offsetNodes[x], false).y <= 0 + topOffset + scrollingNodeTop) {
                             if (activeNode === offsetNodes[x]) { return; }
