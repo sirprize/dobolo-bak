@@ -43,14 +43,15 @@ define([
             });
         },
         
-        positionCalendar: function (refNode) {
-            var pos = domGeom.position(refNode, true);
-            this.calendar.set('posTop', (pos.y + refNode.offsetHeight) + 'px');
+        positionCalendar: function () {
+            var pos = domGeom.position(this.domNode, true);
+            this.calendar.set('posTop', (pos.y + this.domNode.offsetHeight) + 'px');
             this.calendar.set('posLeft', pos.x + 'px');
             this.calendar.position();
         },
         
         showCalendar: function () {
+            this.positionCalendar();
             this.calendar.placeAt(document.body, 'last');
             this.calendar.show();
         },
@@ -101,9 +102,7 @@ define([
             }));
             
             this.calendar.startup();
-            lang.hitch(this, 'positionCalendar', this.domNode)();
-            
-            this.own(on(win.global, 'resize', lang.hitch(this, 'positionCalendar', this.domNode)));
+            this.own(on(win.global, 'resize', lang.hitch(this, 'positionCalendar')));
             this.own(on(this.domNode, 'focus', lang.hitch(this, 'showCalendar')));
             this.own(on(this.domNode, 'click', lang.hitch(this, 'showCalendar')));
             this.own(on(this.domNode, 'blur', lang.hitch(this, 'hideCalendar')));
