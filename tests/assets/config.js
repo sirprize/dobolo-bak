@@ -1,6 +1,6 @@
 var dojoConfig = {
     async: 1,
-    //locale: 'de',
+    locale: 'en',
     cacheBust: 1,
     parseOnLoad: true,
     packages: [

@@ -55,10 +55,18 @@ define([
         
         _setDateAttr: function (val) {
             this._set('date', val);
+            
+            if (this._created) {
+                this.update(this.get('date'));
+            }
         },
         
         _setWeekStartAttr: function (val) {
             this._set('weekStart', val || 0);
+            
+            if (this._created) {
+                this.update(this.get('date'));
+            }
         },
         
         postCreate: function () {
