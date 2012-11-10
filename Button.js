@@ -1,8 +1,7 @@
 define([
     'dojo/_base/declare',
-    'dijit/form/_FormWidget',
-    'dijit/form/_ButtonMixin',
-    'dijit/registry',
+    'dojo-form-controls/Button',
+    'mijit/registry',
     'dojo/_base/array',
     'dojo/_base/lang',
     'dojo/dom-class',
@@ -10,17 +9,15 @@ define([
     'dojo/domReady!'
 ], function (
     declare,
-    _FormWidget,
-    _ButtonMixin,
+    Button,
     registry,
     array,
     lang,
     domClass,
     domAttr
 ) {
-    return declare([_FormWidget, _ButtonMixin], {
+    return declare([Button], {
 
-        templateString: '<button ${!nameAttrSetting} type="${type}" value="${value}" data-dojo-attach-point="containerNode,focusNode,valueNode,labelNode" data-dojo-attach-event="onclick:_onClick"></button>',
         loadingText: 'Loading...',
         resetText: 'Loaded',
         mode: null,

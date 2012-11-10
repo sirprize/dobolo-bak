@@ -1,7 +1,7 @@
 define([
     "dojo/_base/declare",
-    "dijit/_WidgetBase",
-    "dijit/_TemplatedMixin",
+    "mijit/_WidgetBase",
+    "mijit/_TemplatedMixin",
     "dojo/date",
     "dojo/query",
     "dojo/_base/lang",

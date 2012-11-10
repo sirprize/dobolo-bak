@@ -1,7 +1,7 @@
 define([
     "dojo/_base/declare",
-    "dijit/_WidgetBase",
-    "dijit/_TemplatedMixin",
+    "mijit/_WidgetBase",
+    "mijit/_TemplatedMixin",
     "dojo/_base/window",
     "dojo/_base/lang",
     "dojo/date/locale",
@@ -44,11 +44,16 @@ define([
         },
         
         _setValueAndDate: function (valueOrDate) {
-            var self = this, setter = function (v, d) {
-                self.domNode.value = v;
-                self._set('value', v);
-                self._set('date', d);
-            };
+            var oldVal = this.get('value'),
+                self = this,
+                setter = function (v, d) {
+                    self.domNode.value = v;
+                    self._set('value', v);
+                    self._set('date', d);
+                    if (oldVal !== v) {
+                        self.onChange(v);
+                    }
+                };
             
             if (valueOrDate && !(valueOrDate instanceof Date)) {
                 valueOrDate = locale.parse(valueOrDate, {
@@ -66,6 +71,8 @@ define([
                 selector: 'date'
             }), valueOrDate);
         },
+        
+        onChange: function (newValue) {},
         
         positionCalendar: function () {
             var pos = domGeom.position(this.domNode, true);
