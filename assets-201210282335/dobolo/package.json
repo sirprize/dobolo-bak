@@ -1,6 +1,0 @@
-{
-    "name": "dobolo",
-    "description": "Dojo Bootstrap Love",
-    "version": "dev-master",
-    "dojoBuild": "package.js"
-}
