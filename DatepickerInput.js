@@ -1,79 +1,52 @@
 define([
     "dojo/_base/declare",
-    "mijit/_WidgetBase",
-    "mijit/_TemplatedMixin",
     "dojo/_base/window",
     "dojo/_base/lang",
     "dojo/date/locale",
+    "dojo/date/stamp",
     "dojo/on",
     "dojo/dom-geometry",
+    "dojo-form-controls/MappedTextbox",
     "./Calendar"
  ], function (
     declare,
-    _WidgetBase,
-    _TemplatedMixin,
     win,
     lang,
     locale,
+    stamp,
     on,
     domGeom,
+    MappedTextbox,
     Calendar
 ) {
-    return declare([_WidgetBase, _TemplatedMixin], {
+    return declare([MappedTextbox], {
         
-        templateString: '<input type="text" data-dojo-attach-point="containerNode"/>',
-        format: 'full',
-        date: null,
+        displayFormat: 'full', // the date format length used for display
         weekStart: 0,
-        
-        _setFormatAttr: function (f) {
-            f = (f === 'long' || f === 'short' || f === 'medium' || f === 'full') ? f : 'full';
-            this._set('format', f);
-        },
         
         _setWeekStartAttr: function (weekStart) {
             this._set('weekStart', weekStart);
         },
-        
-        _setDateAttr: function (valueOrDate) {
-            this._setValueAndDate(valueOrDate);
-        },
-        
-        _setValueAttr: function (valueOrDate) {
-            this._setValueAndDate(valueOrDate);
-        },
-        
-        _setValueAndDate: function (valueOrDate) {
-            var oldVal = this.get('value'),
-                self = this,
-                setter = function (v, d) {
-                    self.domNode.value = v;
-                    self._set('value', v);
-                    self._set('date', d);
-                    if (oldVal !== v) {
-                        self.onChange(v);
-                    }
-                };
-            
-            if (valueOrDate && !(valueOrDate instanceof Date)) {
-                valueOrDate = locale.parse(valueOrDate, {
-                    formatLength: this.get('format'),
-                    selector: 'date'
-                });
+
+        _parseValue: function (v) {
+            if (v instanceof Date) {
+                return v;
+            } else if (v) {
+                return stamp.fromISOString(v);
             }
-            
-            if (!valueOrDate) {
-                return setter('', null);
-            }
-            
-            setter(locale.format(valueOrDate, {
-                formatLength: this.get('format'),
-                selector: 'date'
-            }), valueOrDate);
+            return null;
         },
         
-        onChange: function (newValue) {},
+        _serializeValue: function (v) {
+            return (v instanceof Date) ? stamp.toISOString(v, { selector: 'date' }) : '';
+        },
         
+        _formatValue: function (v) {
+            var f = this.get('displayFormat');
+            f = (f === 'long' || f === 'short' || f === 'medium' || f === 'full') ? f : 'full';
+            return (v instanceof Date) ? locale.format(v, { selector: 'date', formatLength: f }) : '';
+        },
+
         positionCalendar: function () {
             var pos = domGeom.position(this.domNode, true);
             this.calendar.set('posTop', (pos.y + this.domNode.offsetHeight) + 'px');
@@ -96,15 +69,15 @@ define([
             
             this.own(this.calendar = new Calendar({
                 weekStart: this.weekStart,
-                date: this.date
+                date: this.get('value')
             }));
             
-            this.own(this.watch('date', lang.hitch(this, function (prop, old, val) {
+            this.own(this.watch('value', lang.hitch(this, function (prop, old, val) {
                 this.calendar.set('date', val);
             })));
             
             this.own(this.calendar.watch('date', lang.hitch(this, function (prop, old, val) {
-                this.set('date', val);
+                this.set('value', val);
             })));
             
             this.own(on(this.calendar, 'show', lang.hitch(this, function (ev) {
@@ -134,7 +107,8 @@ define([
             })));
             
             this.own(on(this.domNode, 'keyup', lang.hitch(this, function (e) {
-                this.set('date', this.get('date'));
+                // make domNode read-only
+                this.domNode.value = this._formatValue(this.get('value'));
             })));
         }
     });
