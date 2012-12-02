@@ -66,7 +66,7 @@ define([
             domClass.remove(this.domNode, 'in');
             
             if (transition) {
-                on(this.domNode, Util.transition.end, lang.hitch(this, remove));
+                on(this.domNode, Util.transition.end, lang.hitch(this, remove)());
             } else {
                 lang.hitch(this, remove)();
             }
